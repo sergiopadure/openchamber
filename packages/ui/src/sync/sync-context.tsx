@@ -4262,12 +4262,13 @@ export function useRecoveredQuestions(sessionID: string | null, directory?: stri
   const sessions = useStore(store, (state) => state.session)
   const form = useStore(store, (state) => state.form)
   const part = useStore(store, (state) => state.part)
+  const message = useStore(store, (state) => state.message)
   const recovery = useRecoverableQuestionsStore()
   return useMemo(() => deriveRecoveredQuestions(
-    { form, part },
+    { form, part, message },
     recovery,
     sessionID ? computeSubtreeIds(sessions, sessionID) : new Set<string>(),
-  ), [form, part, recovery, sessionID, sessions])
+  ), [form, message, part, recovery, sessionID, sessions])
 }
 
 const sessionsByIdCache = new WeakMap<State["session"], Map<string, Session>>()
